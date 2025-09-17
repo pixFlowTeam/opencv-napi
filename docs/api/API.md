@@ -1,6 +1,6 @@
 # OpenCV NAPI API 文档
 
-**版本 1.0.8** - 高性能 OpenCV Node.js 绑定！🚀
+**版本 1.0.9** - 高性能 OpenCV Node.js 绑定！🚀
 
 ## OpenCV 类
 
