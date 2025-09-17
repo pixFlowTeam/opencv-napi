@@ -1,0 +1,148 @@
+{
+  "name": "opencv-napi",
+  "version": "1.0.1",
+  "description": "High-performance Node.js NAPI bindings for OpenCV 4.12.0 - Complete Computer Vision Library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "npm run build:ts && node-gyp rebuild",
+    "build:ts": "tsdown",
+    "build:ts:watch": "tsc --watch",
+    "build:clean": "rm -rf dist",
+    "cross-compile": "node scripts/buildScript/cross-compile.js",
+    "cross-compile:all": "node scripts/buildScript/cross-compile.js win32 && node scripts/buildScript/cross-compile.js darwin x64 && node scripts/buildScript/cross-compile.js darwin arm64 && node scripts/buildScript/cross-compile.js linux x64 && node scripts/buildScript/cross-compile.js linux arm64",
+    "cross-compile:win32": "node scripts/buildScript/cross-compile.js win32",
+    "cross-compile:darwin-x64": "node scripts/buildScript/cross-compile.js darwin x64",
+    "cross-compile:darwin-arm64": "node scripts/buildScript/cross-compile.js darwin arm64",
+    "cross-compile:linux-x64": "node scripts/buildScript/cross-compile.js linux x64",
+    "cross-compile:linux-arm64": "node scripts/buildScript/cross-compile.js linux arm64",
+    "cross-compile:verify": "node scripts/buildScript/verify-cross-compile.js",
+    "cross-compile:summary": "node scripts/buildScript/verify-cross-compile.js --summary",
+    "cross-compile:opencv": "node scripts/buildScript/cross-compile.js",
+    "cross-compile:opencv:verify": "node scripts/buildScript/verify-cross-compile.js",
+    "cross-compile:opencv:summary": "node scripts/buildScript/verify-cross-compile.js --summary",
+    "cross-compile:opencv:clean": "node scripts/buildScript/clean-opencv-build.js",
+    "cross-compile:opencv:clean:structure": "node scripts/buildScript/clean-opencv-build.js --structure",
+    "cross-compile:status:update": "node scripts/buildScript/update-cross-compile-status.js",
+    "check:env": "node scripts/utils/check-environment.js",
+    "rebuild": "npm run clean && npm run build",
+    "test": "vitest --no-watch --reporter=verbose",
+    "test:run": "vitest run --reporter=verbose",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest --watch",
+    "prepublishOnly": "npm run test",
+    "install": "node-gyp rebuild",
+    "clean": "node-gyp clean",
+    "setup:github": "node scripts/github-setup.js",
+    "docs:generate": "node scripts/docs/generate-docs.js",
+    "extract:thumbnails": "node scripts/docs/extract-thumbnails.js",
+    "convert:jpeg": "node scripts/docs/batch-jpeg-conversion.js",
+    "version:check": "node -e \"console.log('Package:', require('./package.json').version); console.log('Node:', process.version);\"",
+    "release": "bumpp --execute \"node scripts/utils/release.js\" --all && npm publish",
+    "release:dry": "bumpp --dry-run",
+    "electron-rebuild": "build-opencv --electron --version 4.5.4 build"
+  },
+  "dependencies": {
+    "node-addon-api": "^7.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.1",
+    "@vitest/ui": "^3.2.4",
+    "bumpp": "^10.2.3",
+    "node-gyp": "^10.2.0",
+    "tsdown": "^0.15.2",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "gypfile": true,
+  "binary": {
+    "napi_versions": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "napi": {
+    "name": "opencv_napi",
+    "triples": {
+      "defaults": true,
+      "additional": [
+        "x64-apple-darwin",
+        "arm64-apple-darwin",
+        "x64-pc-windows-msvc",
+        "x64-unknown-linux-gnu",
+        "arm64-unknown-linux-gnu"
+      ]
+    }
+  },
+  "files": [
+    "lib/**/*",
+    "src/**/*",
+    "build/**/*",
+    "deps/**/*",
+    "types/**/*",
+    "docs/**/*",
+    "examples/**/*",
+    "scripts/**/*",
+    "binding.gyp",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "IMPLEMENTATION_SUMMARY.md",
+    "UPGRADE.md",
+    "PUBLICATION.md",
+    ".bumpprc"
+  ],
+  "os": [
+    "win32",
+    "darwin",
+    "linux"
+  ],
+  "keywords": [
+    "opencv",
+    "computer-vision",
+    "image-processing",
+    "machine-learning",
+    "native-addon",
+    "napi",
+    "javascript",
+    "nodejs",
+    "cv",
+    "image-analysis",
+    "feature-detection",
+    "object-detection",
+    "calibration",
+    "stereo-vision",
+    "video-processing",
+    "real-time",
+    "performance",
+    "optimization"
+  ],
+  "author": "Bao LE <bao.lq.it@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pixFlowTeam/opencvspeed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pixFlowTeam/opencvspeed/issues"
+  },
+  "homepage": "https://github.com/pixFlowTeam/opencvspeed#readme"
+}
