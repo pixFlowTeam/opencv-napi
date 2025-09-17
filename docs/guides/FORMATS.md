@@ -1,6 +1,6 @@
 # 支持的 图像格式
 
-**版本 1.0.7** - 现已在 [npmjs.com](https://www.npmjs.com/package/opencv-napi) 上可用！🎉
+**版本 1.0.8** - 现已在 [npmjs.com](https://www.npmjs.com/package/opencv-napi) 上可用！🎉
 
 ## 概述
 
