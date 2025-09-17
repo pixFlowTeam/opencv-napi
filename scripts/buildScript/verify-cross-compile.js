@@ -110,16 +110,16 @@ class OpenCVCrossCompileVerifier {
   }
 
   getExpectedLibs(platform) {
-    // 使用 libopencv_world 统一库
+    // 使用静态链接的 libopencv_world 库
     if (platform.startsWith('darwin')) {
-      // Darwin 平台使用 .dylib 文件
-      return ['libopencv_world.4.12.0.dylib'];
+      // Darwin 平台使用静态库 .a 文件
+      return ['libopencv_world.a'];
     } else if (platform.startsWith('win32')) {
-      // Windows 平台使用 .dll 文件
-      return ['libopencv_world4120.dll'];
+      // Windows 平台使用静态库 .lib 文件
+      return ['libopencv_world.lib'];
     } else {
-      // Linux 平台使用 .so 文件（符号链接指向实际文件）
-      return ['libopencv_world.so.4.12.0'];
+      // Linux 平台使用静态库 .a 文件
+      return ['libopencv_world.a'];
     }
   }
 
