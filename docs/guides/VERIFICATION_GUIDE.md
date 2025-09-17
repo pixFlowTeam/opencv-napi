@@ -168,7 +168,7 @@ sudo yum install glibc-devel
 ## 🧹 构建产物清理
 
 ### 清理脚本功能
-清理脚本 (`scripts/clean-opencv-build.js`) 用于删除 OpenCV 构建过程中的中间产物，保留必要的库文件和头文件：
+清理功能已集成到构建脚本中，构建完成后会自动清理中间产物，保留必要的库文件和头文件：
 
 **删除的内容：**
 - `CMakeFiles/` - CMake 构建文件

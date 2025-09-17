@@ -29,8 +29,6 @@
     "cross-compile:opencv": "node scripts/buildScript/cross-compile.js",
     "cross-compile:opencv:verify": "node scripts/buildScript/verify-cross-compile.js",
     "cross-compile:opencv:summary": "node scripts/buildScript/verify-cross-compile.js --summary",
-    "cross-compile:opencv:clean": "node scripts/buildScript/clean-opencv-build.js",
-    "cross-compile:opencv:clean:structure": "node scripts/buildScript/clean-opencv-build.js --structure",
     "cross-compile:status:update": "node scripts/buildScript/update-cross-compile-status.js",
     "check:env": "node scripts/utils/check-environment.js",
     "rebuild": "npm run clean && npm run build",

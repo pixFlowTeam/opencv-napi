@@ -242,14 +242,13 @@ class OpenCVCrossCompiler {
       'BUILD_SHARED_LIBS': 'OFF',          // 构建静态库（.a），完全避免动态库依赖问题
       'CMAKE_POSITION_INDEPENDENT_CODE': 'ON', // 位置无关代码（PIC）
       
-          // ==================== 平台特定编译器选项 ====================
-          // Linux 平台使用 GCC 9.2.0，使用最基本的兼容选项
-          'CMAKE_C_FLAGS_LINUX': '-O3 -Wall -Wreturn-type -Waddress -Wsequence-point -Wformat -Wformat-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Wno-comment -Wno-strict-overflow',
-          'CMAKE_CXX_FLAGS_LINUX': '-O3 -Wall -Wreturn-type -Wnon-virtual-dtor -Waddress -Wsequence-point -Wformat -Wformat-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Wno-delete-non-virtual-dtor -Wno-comment -Wno-strict-overflow -Wno-deprecated -Wno-missing-declarations -Wno-shadow -Wno-unused-parameter -Wno-unused-local-typedefs -Wno-sign-compare -Wno-sign-promo -Wno-undef -Wno-ignored-qualifiers -Wno-extra -Wno-unused-function -Wno-unused-const-variable -Wno-invalid-offsetof -Wno-suggest-override -Wno-implicit-fallthrough -Wno-array-bounds -Wno-stringop-overflow',
+      // ==================== 构建优化 ====================
+      'CMAKE_INSTALL_DO_STRIP': 'ON',      // 安装时自动 strip 符号，减小文件大小
       
-      // 禁用有问题的编译器检查
-      'OPENCV_DISABLE_COMPILER_WARNINGS': 'ON',
-      'OPENCV_DISABLE_COMPILER_WARNINGS_ABSOLUTE_PATHS': 'ON',
+      // ==================== 平台特定编译器选项 ====================
+      // Linux 平台使用 GCC 9.2.0，使用最基本的兼容选项
+      'CMAKE_C_FLAGS_LINUX': '-O3 -Wall -Wreturn-type -Waddress -Wsequence-point -Wformat -Wformat-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wuninitialized -Wno-comment -Wno-strict-overflow',
+      'CMAKE_CXX_FLAGS_LINUX': '-O3 -Wall -Wreturn-type -Wnon-virtual-dtor -Waddress -Wsequence-point -Wformat -Wformat-security -Wmissing-declarations -Wundef -Winit-self -Wpointer-arith -Wshadow -Wsign-promo -Wuninitialized -Wno-delete-non-virtual-dtor -Wno-comment -Wno-strict-overflow -Wno-deprecated -Wno-missing-declarations -Wno-shadow -Wno-unused-parameter -Wno-unused-local-typedefs -Wno-sign-compare -Wno-sign-promo -Wno-undef -Wno-ignored-qualifiers -Wno-extra -Wno-unused-function -Wno-unused-const-variable -Wno-invalid-offsetof -Wno-suggest-override -Wno-implicit-fallthrough -Wno-array-bounds -Wno-stringop-overflow',
       
       // ==================== 第三方库配置 ====================
       // 视频处理库
@@ -374,10 +373,117 @@ class OpenCVCrossCompiler {
 
     // 静态链接模式，无需修复 install_name
 
+    // 构建后自动清理中间产物（暂时禁用以测试构建）
+    // this.log("清理构建中间产物...");
+    // await this.cleanBuildArtifacts(platformBuildDir);
+
     this.log(`✅ ${targetPlatform}${targetArch ? ` (${targetArch})` : ''} 交叉编译完成`);
     this.log(`构建输出: ${platformBuildDir}`);
   }
 
+  // 清理构建中间产物
+  async cleanBuildArtifacts(buildDir) {
+    const patternsToDelete = [
+      'CMakeFiles/',
+      'modules/',
+      '3rdparty/',
+      'apps/',
+      'samples/',
+      'test/',
+      '*.o',
+      '*.obj',
+      '*.lo',
+      '*.la',
+      '*.tmp',
+      '*.log',
+      'Makefile',
+      'cmake_install.cmake',
+      'CMakeCache.txt',
+      'CMakeFiles/',
+      'CTestTestfile.cmake',
+      'cmake_install.cmake',
+      'install_manifest.txt',
+      'compile_commands.json'
+    ];
+
+    const patternsToKeep = [
+      'lib/',
+      'include/',
+      'bin/',
+      '*.dll',
+      '*.dylib',
+      '*.so*',
+      '*.a',
+      '*.lib',
+      'OpenCVConfig*.cmake',
+      'opencv-config.cmake',
+      'opencv_modules.hpp',
+      'cvconfig.h',
+      'cv_cpu_config.h'
+    ];
+
+    try {
+      await this.cleanDirectory(buildDir, patternsToKeep, patternsToDelete);
+      this.log("✅ 中间产物清理完成");
+    } catch (error) {
+      this.log(`⚠️  清理过程中出现警告: ${error.message}`);
+    }
+  }
+
+  // 递归清理目录
+  async cleanDirectory(dir, keepPatterns, deletePatterns) {
+    if (!fs.existsSync(dir)) return;
+
+    const items = fs.readdirSync(dir);
+    
+    for (const item of items) {
+      const itemPath = path.join(dir, item);
+      let stat;
+      
+      try {
+        stat = fs.statSync(itemPath);
+      } catch (error) {
+        continue;
+      }
+      
+      if (stat.isDirectory()) {
+        // 检查是否应该删除目录
+        const shouldDelete = deletePatterns.some(pattern => 
+          pattern.endsWith('/') && item.includes(pattern.slice(0, -1))
+        );
+        
+        if (shouldDelete) {
+          fs.rmSync(itemPath, { recursive: true, force: true });
+          this.log(`  🗑️  删除目录: ${item}`);
+        } else {
+          // 递归处理子目录
+          await this.cleanDirectory(itemPath, keepPatterns, deletePatterns);
+        }
+      } else {
+        // 检查是否应该删除文件
+        const shouldDelete = deletePatterns.some(pattern => {
+          if (pattern.includes('*')) {
+            const regex = new RegExp(pattern.replace(/\*/g, '.*'));
+            return regex.test(item);
+          }
+          return item === pattern;
+        });
+        
+        const shouldKeep = keepPatterns.some(pattern => {
+          if (pattern.includes('*')) {
+            const regex = new RegExp(pattern.replace(/\*/g, '.*'));
+            return regex.test(item);
+          }
+          return item === pattern || item.startsWith(pattern);
+        });
+        
+        if (shouldDelete && !shouldKeep) {
+          fs.unlinkSync(itemPath);
+          this.log(`  🗑️  删除文件: ${item}`);
+        }
+      }
+    }
+  }
 
   // 列出支持的目标平台
   listTargets() {

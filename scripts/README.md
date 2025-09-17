@@ -9,7 +9,7 @@
 - [build-opencv.js](build/build-opencv.js) - OpenCV 构建工具
 - [build_napi.sh](build/build_napi.sh) - NAPI 构建脚本
 - [build_napi_modular.sh](build/build_napi_modular.sh) - 模块化 NAPI 构建脚本
-- [clean-opencv-build.js](build/clean-opencv-build.js) - 清理 OpenCV 构建文件
+- 清理功能已集成到 `cross-compile.js` 中
 - [cross-compile.js](build/cross-compile.js) - 交叉编译工具
 - [update-cross-compile-status.js](build/update-cross-compile-status.js) - 更新交叉编译状态
 - [verify-cross-compile.js](build/verify-cross-compile.js) - 验证交叉编译结果
@@ -44,7 +44,7 @@ node scripts/buildScript/build-opencv.js
 node scripts/buildScript/cross-compile.js
 
 # 清理构建文件
-node scripts/buildScript/clean-opencv-build.js
+# 清理功能已集成到构建脚本中，无需单独运行
 ```
 
 ### 测试相关
