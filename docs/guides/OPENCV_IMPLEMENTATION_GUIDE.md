@@ -128,7 +128,7 @@ class ColorProcessor:
 
 ```javascript
 // 注意：NAPI 接口尚未实现
-// const cv = require('opencvspeed');
+// const cv = require('opencv-napi');
 
 class ColorProcessor {
   constructor() {

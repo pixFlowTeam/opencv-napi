@@ -139,10 +139,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pixFlowTeam/opencvspeed.git"
+    "url": "https://github.com/pixFlowTeam/opencv-napi.git"
   },
   "bugs": {
-    "url": "https://github.com/pixFlowTeam/opencvspeed/issues"
+    "url": "https://github.com/pixFlowTeam/opencv-napi/issues"
   },
-  "homepage": "https://github.com/pixFlowTeam/opencvspeed#readme"
+  "homepage": "https://github.com/pixFlowTeam/opencv-napi#readme"
 }

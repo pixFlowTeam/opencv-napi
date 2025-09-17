@@ -3,7 +3,7 @@
 ## 项目结构
 
 ```
-opencvspeed/
+opencv-napi/
 ├── src/
 │   ├── napi_core/                    # 核心基础设施
 │   │   ├── base/

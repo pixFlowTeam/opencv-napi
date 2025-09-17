@@ -51,6 +51,6 @@
 
 ## 联系方式
 
-- 项目仓库: https://github.com/your-org/opencvspeed
-- 问题跟踪: https://github.com/your-org/opencvspeed/issues
-- 文档站点: https://your-org.github.io/opencvspeed
+- 项目仓库: https://github.com/your-org/opencv-napi
+- 问题跟踪: https://github.com/your-org/opencv-napi/issues
+- 文档站点: https://your-org.github.io/opencv-napi

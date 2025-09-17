@@ -81,7 +81,7 @@ class OpenCVCrossCompiler {
             '-DCMAKE_CXX_COMPILER=x86_64-linux-musl-g++',
             '-DCMAKE_C_FLAGS=-m64 -DSIZEOF_SIZE_T=8 -D_GNU_SOURCE=1 -D__GLIBC__=1 -D__MUSL__=1',
             '-DCMAKE_CXX_FLAGS=-m64 -DSIZEOF_SIZE_T=8 -D_GNU_SOURCE=1 -D__GLIBC__=1 -D__MUSL__=1',
-            '-DCMAKE_INCLUDE_PATH=/Users/fuguoqiang/Documents/workspace/infra/opencvspeed/deps/OpenCV-Source/opencv-4.12.0/build/linux-x64',
+            '-DCMAKE_INCLUDE_PATH=/Users/fuguoqiang/Documents/workspace/infra/opencv-napi/deps/OpenCV-Source/opencv-4.12.0/build/linux-x64',
             '-DCMAKE_FIND_ROOT_PATH=/opt/homebrew/x86_64-linux-musl',
             '-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER',
             '-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY',

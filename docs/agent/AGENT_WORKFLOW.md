@@ -152,7 +152,7 @@ docs/{module}-{documentation_type}
 #### 模块间集成
 ```typescript
 // 测试模块间的依赖关系
-import { core, imgproc } from 'opencvspeed';
+import { core, imgproc } from 'opencv-napi';
 
 const mat = core.Mat_Create(100, 100, core.CV_8UC3);
 const blurred = imgproc.GaussianBlur(mat, [5, 5], 0);
@@ -161,7 +161,7 @@ const blurred = imgproc.GaussianBlur(mat, [5, 5], 0);
 #### 端到端测试
 ```typescript
 // 测试完整的图像处理流程
-import { imgcodecs, imgproc, objdetect } from 'opencvspeed';
+import { imgcodecs, imgproc, objdetect } from 'opencv-napi';
 
 const image = imgcodecs.imread('test.jpg');
 const gray = imgproc.cvtColor(image, imgproc.COLOR_BGR2GRAY);

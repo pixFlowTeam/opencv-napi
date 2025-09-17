@@ -23,7 +23,7 @@ cd deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/modules/core
 make
 
 # 3. 验证修复结果
-cd /Users/fuguoqiang/Documents/workspace/infra/opencvspeed
+cd /Users/fuguoqiang/Documents/workspace/infra/opencv-napi
 node scripts/verify-cross-compile.js
 ```
 
