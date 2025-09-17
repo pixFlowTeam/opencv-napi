@@ -188,76 +188,90 @@ namespace NapiOpenCV
 
         Napi::Value Add(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "Add 函数尚未实现");
+            Napi::Error::New(info.Env(), "Add 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value Subtract(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "Subtract 函数尚未实现");
+            Napi::Error::New(info.Env(), "Subtract 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value Multiply(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "Multiply 函数尚未实现");
+            Napi::Error::New(info.Env(), "Multiply 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value Divide(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "Divide 函数尚未实现");
+            Napi::Error::New(info.Env(), "Divide 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value AbsDiff(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "AbsDiff 函数尚未实现");
+            Napi::Error::New(info.Env(), "AbsDiff 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value Pow(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "Pow 函数尚未实现");
+            Napi::Error::New(info.Env(), "Pow 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value Sqrt(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "Sqrt 函数尚未实现");
+            Napi::Error::New(info.Env(), "Sqrt 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value Exp(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "Exp 函数尚未实现");
+            Napi::Error::New(info.Env(), "Exp 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value Log(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "Log 函数尚未实现");
+            Napi::Error::New(info.Env(), "Log 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value BitwiseAnd(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "BitwiseAnd 函数尚未实现");
+            Napi::Error::New(info.Env(), "BitwiseAnd 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value BitwiseOr(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "BitwiseOr 函数尚未实现");
+            Napi::Error::New(info.Env(), "BitwiseOr 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value BitwiseXor(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "BitwiseXor 函数尚未实现");
+            Napi::Error::New(info.Env(), "BitwiseXor 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         Napi::Value BitwiseNot(const Napi::CallbackInfo &info)
         {
-            throw Napi::Error::New(info.Env(), "BitwiseNot 函数尚未实现");
+            Napi::Error::New(info.Env(), "BitwiseNot 函数尚未实现").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
         }
 
         // 继续其他函数的占位符实现...
         // 为了简洁，我只实现几个关键函数，其他的都返回"尚未实现"
 
-#define PLACEHOLDER_IMPL(func_name)                                     \
-    Napi::Value func_name(const Napi::CallbackInfo &info)               \
-    {                                                                   \
-        throw Napi::Error::New(info.Env(), #func_name " 函数尚未实现"); \
+#define PLACEHOLDER_IMPL(func_name)                                                            \
+    Napi::Value func_name(const Napi::CallbackInfo &info)                                      \
+    {                                                                                          \
+        Napi::Error::New(info.Env(), #func_name " 函数尚未实现").ThrowAsJavaScriptException(); \
+        return info.Env().Undefined();                                                         \
     }
 
         PLACEHOLDER_IMPL(AddWeighted)

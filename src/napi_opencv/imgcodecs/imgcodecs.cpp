@@ -64,10 +64,11 @@ namespace NapiOpenCV
             return Napi::Boolean::New(info.Env(), success); });
         }
 
-#define PLACEHOLDER_IMPL(func_name)                                     \
-    Napi::Value func_name(const Napi::CallbackInfo &info)               \
-    {                                                                   \
-        throw Napi::Error::New(info.Env(), #func_name " 函数尚未实现"); \
+#define PLACEHOLDER_IMPL(func_name)                                                            \
+    Napi::Value func_name(const Napi::CallbackInfo &info)                                      \
+    {                                                                                          \
+        Napi::Error::New(info.Env(), #func_name " 函数尚未实现").ThrowAsJavaScriptException(); \
+        return info.Env().Undefined();                                                         \
     }
 
         PLACEHOLDER_IMPL(Imdecode)
