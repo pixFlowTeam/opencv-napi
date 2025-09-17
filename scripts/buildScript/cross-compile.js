@@ -27,7 +27,7 @@ class OpenCVCrossCompiler {
           '-DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc',
           '-DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++',
           '-DCMAKE_RC_COMPILER=x86_64-w64-mingw32-windres',
-          '-DCMAKE_FIND_ROOT_PATH=/opt/homebrew',
+          `-DCMAKE_FIND_ROOT_PATH=${this.getHomebrewPath()}`,
           '-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER',
           '-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY',
           '-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY'
@@ -81,8 +81,8 @@ class OpenCVCrossCompiler {
             '-DCMAKE_CXX_COMPILER=x86_64-linux-musl-g++',
             '-DCMAKE_C_FLAGS=-m64 -DSIZEOF_SIZE_T=8 -D_GNU_SOURCE=1 -D__GLIBC__=1 -D__MUSL__=1',
             '-DCMAKE_CXX_FLAGS=-m64 -DSIZEOF_SIZE_T=8 -D_GNU_SOURCE=1 -D__GLIBC__=1 -D__MUSL__=1',
-            '-DCMAKE_INCLUDE_PATH=/Users/fuguoqiang/Documents/workspace/infra/opencv-napi/deps/OpenCV-Source/opencv-4.12.0/build/linux-x64',
-            '-DCMAKE_FIND_ROOT_PATH=/opt/homebrew/x86_64-linux-musl',
+            `-DCMAKE_INCLUDE_PATH=${path.join(this.opencvSourceDir, 'build/linux-x64')}`,
+            `-DCMAKE_FIND_ROOT_PATH=${this.getHomebrewPath()}/x86_64-linux-musl`,
             '-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER',
             '-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY',
             '-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY',
@@ -109,7 +109,7 @@ class OpenCVCrossCompiler {
             '-DCMAKE_CXX_COMPILER=aarch64-linux-musl-g++',
             '-DCMAKE_C_FLAGS=-march=armv8-a -DSIZEOF_SIZE_T=8 -D_GNU_SOURCE=1 -D__GLIBC__=1 -D__MUSL__=1',
             '-DCMAKE_CXX_FLAGS=-march=armv8-a -DSIZEOF_SIZE_T=8 -D_GNU_SOURCE=1 -D__GLIBC__=1 -D__MUSL__=1',
-            '-DCMAKE_FIND_ROOT_PATH=/opt/homebrew/aarch64-linux-musl',
+            `-DCMAKE_FIND_ROOT_PATH=${this.getHomebrewPath()}/aarch64-linux-musl`,
             '-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER',
             '-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY',
             '-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY',
@@ -126,6 +126,20 @@ class OpenCVCrossCompiler {
 
   log(message) {
     console.log(`[OpenCV 交叉编译器] ${message}`);
+  }
+
+  // 获取 Homebrew 路径
+  getHomebrewPath() {
+    // 优先检查 Intel Mac 的路径
+    if (fs.existsSync('/opt/homebrew')) {
+      return '/opt/homebrew';
+    }
+    // 检查 Apple Silicon Mac 的路径
+    if (fs.existsSync('/usr/local')) {
+      return '/usr/local';
+    }
+    // 如果都不存在，返回默认路径
+    return '/opt/homebrew';
   }
 
   // 检查工具链是否可用
