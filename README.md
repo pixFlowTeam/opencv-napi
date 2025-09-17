@@ -38,7 +38,11 @@ npm install opencv-napi
 如果预编译的二进制文件不适用于您的平台，可以尝试从源码构建：
 
 ```bash
-npm install --build-from-source
+# 安装并自动构建
+npm install
+
+# 或者手动构建
+npm run build
 ```
 
 ## 先决条件（从源码构建）

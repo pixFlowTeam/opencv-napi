@@ -207,6 +207,10 @@ class OpenCVCrossCompiler {
       'BUILD_opencv_gapi': 'ON',           // 图API：高性能图像处理管道，支持异构计算
       'WITH_ADE': 'ON',                    // ADE库：GAPI的依赖，用于图执行引擎
       
+      // ==================== macOS 库链接修复 ====================
+      'CMAKE_INSTALL_NAME_DIR': '@rpath',  // 设置库的 install_name 目录
+      'CMAKE_MACOSX_RPATH': 'ON',          // 启用 macOS rpath 支持
+      
       // ==================== 禁用的模块 ====================
       'BUILD_opencv_dnn': 'OFF',           // 深度学习：神经网络推理（需要大量依赖）
       'BUILD_opencv_ml': 'OFF',            // 机器学习：传统ML算法（SVM、KNN等）
@@ -362,8 +366,41 @@ class OpenCVCrossCompiler {
       stdio: 'inherit'
     });
 
+    // 修复 macOS 库的 install_name
+    if (targetPlatform === 'darwin') {
+      this.fixInstallName(platformBuildDir);
+    }
+
     this.log(`✅ ${targetPlatform}${targetArch ? ` (${targetArch})` : ''} 交叉编译完成`);
     this.log(`构建输出: ${platformBuildDir}`);
+  }
+
+  // 修复 macOS 库的 install_name
+  fixInstallName(buildDir) {
+    try {
+      const libDir = path.join(buildDir, 'lib');
+      if (!fs.existsSync(libDir)) {
+        this.log('⚠️  库目录不存在，跳过 install_name 修复');
+        return;
+      }
+
+      const libFiles = fs.readdirSync(libDir);
+      const opencvWorldLib = libFiles.find(file => file.startsWith('libopencv_world.') && file.endsWith('.dylib'));
+      
+      if (!opencvWorldLib) {
+        this.log('⚠️  未找到 libopencv_world 库文件，跳过 install_name 修复');
+        return;
+      }
+
+      const libPath = path.join(libDir, opencvWorldLib);
+      const newName = '@rpath/libopencv_world.4.12.0.dylib';
+      
+      this.log(`🔧 修复 install_name: ${opencvWorldLib}`);
+      execSync(`install_name_tool -id "${newName}" "${libPath}"`, { stdio: 'inherit' });
+      this.log('✅ install_name 修复完成');
+    } catch (error) {
+      this.log(`❌ install_name 修复失败: ${error.message}`);
+    }
   }
 
   // 列出支持的目标平台

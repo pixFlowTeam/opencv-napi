@@ -35,7 +35,7 @@
       ],
       "libraries": [
         "-L<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
-        "-lopencv_world"
+        "-lopencv_world.4.12.0"
       ],
       "library_dirs": [
         "<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"
@@ -63,7 +63,8 @@
           "<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"
         ],
         "OTHER_LDFLAGS": [
-          "-Wl,-rpath,<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"
+          "-Wl,-rpath,<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
+          "-Wl,-install_name,@rpath/libopencv_world.4.12.0.dylib"
         ]
       },
       "conditions": [
