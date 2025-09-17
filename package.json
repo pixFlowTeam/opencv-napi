@@ -93,7 +93,6 @@
     "lib/**/*",
     "src/**/*",
     "build/**/*",
-    "scripts/utils/platform-utils.js",
     "deps/OpenCV-Source/opencv-4.12.0/build/*/lib/libopencv_world.a",
     "deps/OpenCV-Source/opencv-4.12.0/build/*/include/**/*",
     "deps/OpenCV-Source/opencv-4.12.0/build/*/3rdparty/lib/*.a",

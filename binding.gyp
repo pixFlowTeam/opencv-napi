@@ -17,22 +17,25 @@
         "src/napi_opencv/videoio/videoio.cpp",
         "src/napi_opencv/gapi/gapi.cpp"
       ],
-      "include_dirs": [
-        "<!@(node -p \"require('node-addon-api').include\")",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/core/include",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/imgproc/include",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/imgcodecs/include",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/objdetect/include",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/features2d/include",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/photo/include",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/calib3d/include",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/flann/include",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/videoio/include",
-        "deps/OpenCV-Source/opencv-4.12.0/modules/gapi/include",
-        "deps/OpenCV-Source/opencv-4.12.0/include",
-        "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCVIncludePath()\")",
-        "src"
-      ],
+        "include_dirs": [
+          "<!@(node -p \"require('node-addon-api').include\")",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/core/include",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/imgproc/include",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/imgcodecs/include",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/objdetect/include",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/features2d/include",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/photo/include",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/calib3d/include",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/flann/include",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/videoio/include",
+          "deps/OpenCV-Source/opencv-4.12.0/modules/gapi/include",
+          "deps/OpenCV-Source/opencv-4.12.0/include",
+          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/include/opencv4",
+          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/include/opencv4",
+          "deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/include/opencv4",
+          "deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/include/opencv4",
+          "src"
+        ],
       "libraries": [
         "-lopencv_world",
         "-llibwebp",
@@ -44,10 +47,16 @@
         "-lzlib",
         "-littnotify"
       ],
-      "library_dirs": [
-        "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCVLibDir()\")",
-        "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCV3rdPartyLibDir()\")"
-      ],
+        "library_dirs": [
+          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
+          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib",
+          "deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib",
+          "deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib",
+          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib/opencv4/3rdparty",
+          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib/opencv4/3rdparty",
+          "deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib/opencv4/3rdparty",
+          "deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib/opencv4/3rdparty"
+        ],
       "cflags": [
         "-std=c++17",
         "-Wall",
@@ -67,12 +76,18 @@
         "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
         "CLANG_CXX_LIBRARY": "libc++",
         "MACOSX_DEPLOYMENT_TARGET": "11.0",
-        "LD_RUNPATH_SEARCH_PATHS": [
-          "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCVLibDir()\")"
-        ],
-        "OTHER_LDFLAGS": [
-          "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCVRpathFlags()\")"
-        ]
+          "LD_RUNPATH_SEARCH_PATHS": [
+            "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
+            "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib",
+            "deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib",
+            "deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib"
+          ],
+          "OTHER_LDFLAGS": [
+            "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
+            "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib",
+            "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib",
+            "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib"
+          ]
       },
       "conditions": [
         ["OS==\"win\"", {
