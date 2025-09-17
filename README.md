@@ -80,9 +80,9 @@ opencv.imwrite('output.jpg', resized);
 
 ## 当前实现状态
 
-### 已实现功能 (26个函数)
+### 已实现功能 (13个函数)
 
-**Core 模块 (21个函数)**:
+**Core 模块 (8个函数)**:
 - 系统信息: `getBuildInformation`, `getNumThreads`, `setNumThreads`
 - 版本信息: `getVersionMajor`, `getVersionMinor`, `getVersionRevision`
 - 基础数学运算: `add`, `subtract`, `multiply`, `divide`
@@ -190,9 +190,32 @@ npm test
 npm run test:run
 ```
 
+## 文档
+
+### 📚 主要文档
+- [架构概览](docs/development/ARCHITECTURE_OVERVIEW.md) - 项目整体架构设计
+- [NAPI 架构总结](docs/development/NAPI_ARCHITECTURE_SUMMARY.md) - NAPI 多 Agent 架构实施总结
+- [接口完整性报告](docs/api/INTERFACE_COMPLETENESS_REPORT.md) - OpenCV 4.12.0 接口覆盖分析
+- [占位符实现状态](docs/api/PLACEHOLDER_IMPLEMENTATION_STATUS.md) - 当前函数实现状态
+
+### 🚀 开发指南
+- [开发指南](docs/guides/README_NAPI.md) - 快速开始和基础使用
+- [模块化指南](docs/guides/README_MODULAR.md) - 模块化架构说明
+- [测试指南](docs/guides/TESTING.md) - 测试和验证流程
+- [故障排除](docs/guides/TROUBLESHOOTING.md) - 常见问题解决
+
+### 🔧 构建和部署
+- [构建策略](docs/build/BUILD_STRATEGIES.md) - 构建系统配置
+- [交叉编译](docs/build/CROSS_COMPILATION.md) - 跨平台编译指南
+- [发布策略](docs/development/PUBLICATION.md) - NPM 发布流程
+
+### 📊 性能分析
+- [性能总结](docs/performance/PERFORMANCE_SUMMARY.md) - 性能测试结果
+- [详细性能分析](docs/performance/DETAILED_PERFORMANCE_ANALYSIS.md) - 深度性能分析
+
 ## 贡献
 
-我们欢迎社区贡献！请查看 [CONTRIBUTING.md](CONTRIBUTING.md) 了解详细信息。
+我们欢迎社区贡献！请查看 [CONTRIBUTING.md](docs/development/CONTRIBUTING.md) 了解详细信息。
 
 ### 开发流程
 

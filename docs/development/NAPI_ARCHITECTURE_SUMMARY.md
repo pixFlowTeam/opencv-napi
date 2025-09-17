@@ -70,14 +70,22 @@ REGISTER_NAPI_MODULE(CoreModule, "core", "1.0.0", 1);
 - [x] Core 模块框架
 - [x] 构建系统配置
 - [x] 文档体系建立
+- [x] 基础函数实现（13个函数）
+
+### 📊 当前实现统计
+- **Core 模块**: 8个函数已实现（系统信息相关）
+- **ImgProc 模块**: 3个函数已实现（resize, gaussianBlur, cvtColor）
+- **ImgCodecs 模块**: 2个函数已实现（imread, imwrite）
+- **其他模块**: 0个函数已实现（全部为占位符）
+- **总计**: 13个真正实现，421个占位符实现
 
 ### 🔄 进行中
-- [ ] OpenCV 库构建和链接
-- [ ] 具体函数实现
-- [ ] 类型转换器开发
+- [x] OpenCV 库构建和链接
+- [x] 具体函数实现（部分完成）
+- [x] 类型转换器开发
 
 ### ⏳ 待开始
-- [ ] 其他模块实现 (ImgProc, ImgCodecs, 等)
+- [ ] 其他模块实现 (ObjDetect, Features2D, Photo, 等)
 - [ ] 测试用例编写
 - [ ] 性能优化
 - [ ] 文档完善
@@ -102,9 +110,9 @@ REGISTER_NAPI_MODULE(CoreModule, "core", "1.0.0", 1);
 ## 下一步计划
 
 ### 1. 立即任务
-1. **构建 OpenCV 库**: 解决链接问题
-2. **完善 Core 模块**: 实现具体的 Mat 操作函数
-3. **添加类型转换器**: 实现 OpenCV 类型到 NAPI 的转换
+1. **完善 Core 模块**: 实现基础数学运算函数（add, subtract, multiply, divide等）
+2. **完善 ImgProc 模块**: 实现更多图像处理函数（blur, medianBlur, canny等）
+3. **完善 ImgCodecs 模块**: 实现编解码函数（imdecode, imencode等）
 
 ### 2. 短期目标 (1-2 周)
 1. **实现 ImgProc 模块**: 图像处理功能
