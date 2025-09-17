@@ -35,7 +35,7 @@
       ],
       "libraries": [
         "-L<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
-        "-lopencv_world.4.12.0"
+        "-lopencv_world"
       ],
       "library_dirs": [
         "<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"

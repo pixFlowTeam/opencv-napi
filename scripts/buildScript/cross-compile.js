@@ -233,7 +233,7 @@ class OpenCVCrossCompiler {
       'BUILD_PERF_TESTS': 'OFF',           // 性能测试
       'BUILD_EXAMPLES': 'OFF',             // 示例代码
       'CMAKE_BUILD_TYPE': 'Release',       // 构建类型：Release优化版本
-      'BUILD_SHARED_LIBS': 'ON',           // 构建共享库（.dll/.so/.dylib）
+      'BUILD_SHARED_LIBS': 'OFF',          // 构建静态库（.a），完全避免动态库依赖问题
       'CMAKE_POSITION_INDEPENDENT_CODE': 'ON', // 位置无关代码（PIC）
       
           // ==================== 平台特定编译器选项 ====================
@@ -366,42 +366,12 @@ class OpenCVCrossCompiler {
       stdio: 'inherit'
     });
 
-    // 修复 macOS 库的 install_name
-    if (targetPlatform === 'darwin') {
-      this.fixInstallName(platformBuildDir);
-    }
+    // 静态链接模式，无需修复 install_name
 
     this.log(`✅ ${targetPlatform}${targetArch ? ` (${targetArch})` : ''} 交叉编译完成`);
     this.log(`构建输出: ${platformBuildDir}`);
   }
 
-  // 修复 macOS 库的 install_name
-  fixInstallName(buildDir) {
-    try {
-      const libDir = path.join(buildDir, 'lib');
-      if (!fs.existsSync(libDir)) {
-        this.log('⚠️  库目录不存在，跳过 install_name 修复');
-        return;
-      }
-
-      const libFiles = fs.readdirSync(libDir);
-      const opencvWorldLib = libFiles.find(file => file.startsWith('libopencv_world.') && file.endsWith('.dylib'));
-      
-      if (!opencvWorldLib) {
-        this.log('⚠️  未找到 libopencv_world 库文件，跳过 install_name 修复');
-        return;
-      }
-
-      const libPath = path.join(libDir, opencvWorldLib);
-      const newName = '@rpath/libopencv_world.4.12.0.dylib';
-      
-      this.log(`🔧 修复 install_name: ${opencvWorldLib}`);
-      execSync(`install_name_tool -id "${newName}" "${libPath}"`, { stdio: 'inherit' });
-      this.log('✅ install_name 修复完成');
-    } catch (error) {
-      this.log(`❌ install_name 修复失败: ${error.message}`);
-    }
-  }
 
   // 列出支持的目标平台
   listTargets() {
