@@ -30,13 +30,11 @@
         "deps/OpenCV-Source/opencv-4.12.0/modules/videoio/include",
         "deps/OpenCV-Source/opencv-4.12.0/modules/gapi/include",
         "deps/OpenCV-Source/opencv-4.12.0/include",
-        "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/include/opencv4",
+        "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCVIncludePath()\")",
         "src"
       ],
       "libraries": [
-        "-L<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
         "-lopencv_world",
-        "-L<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib/opencv4/3rdparty",
         "-llibwebp",
         "-llibpng", 
         "-llibjpeg-turbo",
@@ -47,7 +45,8 @@
         "-littnotify"
       ],
       "library_dirs": [
-        "<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"
+        "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCVLibDir()\")",
+        "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCV3rdPartyLibDir()\")"
       ],
       "cflags": [
         "-std=c++17",
@@ -69,11 +68,10 @@
         "CLANG_CXX_LIBRARY": "libc++",
         "MACOSX_DEPLOYMENT_TARGET": "11.0",
         "LD_RUNPATH_SEARCH_PATHS": [
-          "<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"
+          "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCVLibDir()\")"
         ],
         "OTHER_LDFLAGS": [
-          "-Wl,-rpath,<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
-          "-Wl,-install_name,@rpath/libopencv_world.4.12.0.dylib"
+          "<!@(node -p \"require('./scripts/utils/platform-utils.js').getOpenCVRpathFlags()\")"
         ]
       },
       "conditions": [
