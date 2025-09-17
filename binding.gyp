@@ -48,14 +48,8 @@
         "-littnotify"
       ],
         "library_dirs": [
-          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
-          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib",
-          "deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib",
-          "deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib",
-          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib/opencv4/3rdparty",
-          "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib/opencv4/3rdparty",
-          "deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib/opencv4/3rdparty",
-          "deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib/opencv4/3rdparty"
+          "/Users/fuguoqiang/Documents/workspace/infra/opencv-napi/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
+          "/Users/fuguoqiang/Documents/workspace/infra/opencv-napi/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib/opencv4/3rdparty"
         ],
       "cflags": [
         "-std=c++17",
@@ -77,16 +71,10 @@
         "CLANG_CXX_LIBRARY": "libc++",
         "MACOSX_DEPLOYMENT_TARGET": "11.0",
           "LD_RUNPATH_SEARCH_PATHS": [
-            "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
-            "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib",
-            "deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib",
-            "deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib"
+            "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"
           ],
           "OTHER_LDFLAGS": [
-            "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
-            "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib",
-            "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib",
-            "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib"
+            "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"
           ]
       },
       "conditions": [
@@ -94,11 +82,55 @@
           "defines": [
             "_HAS_EXCEPTIONS=1"
           ],
+          "library_dirs": [
+            "deps/OpenCV-Source/opencv-4.12.0/build/win32-x64/lib",
+            "deps/OpenCV-Source/opencv-4.12.0/build/win32-x64/lib/opencv4/3rdparty"
+          ],
           "msvs_settings": {
             "VCCLCompilerTool": {
               "ExceptionHandling": "2"
             }
           }
+        }],
+        ["OS==\"darwin\" and target_arch==\"arm64\"", {
+          "library_dirs": [
+            "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
+            "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib/opencv4/3rdparty"
+          ],
+          "xcode_settings": {
+            "LD_RUNPATH_SEARCH_PATHS": [
+              "deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"
+            ],
+            "OTHER_LDFLAGS": [
+              "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"
+            ]
+          }
+        }],
+        ["OS==\"darwin\" and target_arch==\"x64\"", {
+          "library_dirs": [
+            "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib",
+            "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib/opencv4/3rdparty"
+          ],
+          "xcode_settings": {
+            "LD_RUNPATH_SEARCH_PATHS": [
+              "deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib"
+            ],
+            "OTHER_LDFLAGS": [
+              "-Wl,-rpath,deps/OpenCV-Source/opencv-4.12.0/build/darwin-x64/lib"
+            ]
+          }
+        }],
+        ["OS==\"linux\" and target_arch==\"x64\"", {
+          "library_dirs": [
+            "deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib",
+            "deps/OpenCV-Source/opencv-4.12.0/build/linux-x64/lib/opencv4/3rdparty"
+          ]
+        }],
+        ["OS==\"linux\" and target_arch==\"arm64\"", {
+          "library_dirs": [
+            "deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib",
+            "deps/OpenCV-Source/opencv-4.12.0/build/linux-arm64/lib/opencv4/3rdparty"
+          ]
         }]
       ]
     }
