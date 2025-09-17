@@ -1,6 +1,6 @@
 # OpenCV 使用示例
 
-**版本 1.0.1** - 高性能 OpenCV Node.js 绑定！🚀
+**版本 1.0.2** - 高性能 OpenCV Node.js 绑定！🚀
 
 ## 基础图像处理
 
