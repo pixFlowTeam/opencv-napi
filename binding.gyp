@@ -35,7 +35,16 @@
       ],
       "libraries": [
         "-L<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib",
-        "-lopencv_world"
+        "-lopencv_world",
+        "-L<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib/opencv4/3rdparty",
+        "-llibwebp",
+        "-llibpng", 
+        "-llibjpeg-turbo",
+        "-llibtiff",
+        "-llibopenjp2",
+        "-lade",
+        "-lzlib",
+        "-littnotify"
       ],
       "library_dirs": [
         "<(module_root_dir)/deps/OpenCV-Source/opencv-4.12.0/build/darwin-arm64/lib"

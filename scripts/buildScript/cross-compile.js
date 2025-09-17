@@ -227,6 +227,12 @@ class OpenCVCrossCompiler {
       'BUILD_opencv_python': 'OFF',        // Python绑定
       'BUILD_opencv_objc': 'OFF',          // Objective-C绑定
       
+      // ==================== 禁用复杂依赖 ====================
+      'WITH_OPENCL': 'OFF',                // 禁用 OpenCL 支持，简化静态链接
+      'WITH_OPENCL_SVM': 'OFF',            // 禁用 OpenCL SVM
+      'WITH_OPENCLAMDFFT': 'OFF',          // 禁用 AMD FFT
+      'WITH_OPENCLAMDBLAS': 'OFF',         // 禁用 AMD BLAS
+      
       // ==================== 构建配置 ====================
       'BUILD_opencv_apps': 'OFF',          // 示例应用程序
       'BUILD_TESTS': 'OFF',                // 测试程序
